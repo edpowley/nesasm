@@ -1,6 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
+#ifdef WIN32
+#include <string.h>
+#define strcasecmp _stricmp
+#else
 #include <strings.h>
+#endif
 #include <string.h>
 #include <ctype.h>
 #include "defs.h"

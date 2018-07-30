@@ -1,5 +1,8 @@
 #include <stdio.h>
 #include <string.h>
+#ifdef WIN32
+#define strcasecmp _stricmp
+#endif
 #include <ctype.h>
 #include "defs.h"
 #include "externs.h"

@@ -384,3 +384,33 @@ void funcdump(const char *name, const char *in_fname)
 
     fclose(fns);
 }
+
+void funcdump_fceux(const char *bin_fname)
+{
+	int i;
+	FILE *bankfile[RESERVED_BANK];
+
+	for (i = 0; i < RESERVED_BANK; i++) {
+		bankfile[i] = NULL;
+	}
+
+	for (i = 0; i < 256; i++) {
+		struct t_symbol *sym;
+		for (sym = hash_tbl[i]; sym; sym = sym->next) {
+			if (sym->name  &&  sym->bank >= 0  &&  sym->bank < RESERVED_BANK) {
+				if (!bankfile[sym->bank]) {
+					char nl_fname[128];
+					sprintf(nl_fname, "%s.%d.nl", bin_fname, sym->bank);
+					bankfile[sym->bank] = fopen(nl_fname, "w");
+				}
+				fprintf(bankfile[sym->bank], "$%04X#%s#\n", sym->value, sym->name + 1);
+			}
+		}
+	}
+
+	for (i = 0; i < RESERVED_BANK; i++) {
+		if (bankfile[i]) {
+			fclose(bankfile[i]);
+		}
+	}
+}

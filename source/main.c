@@ -506,6 +506,7 @@ main(int argc, char **argv)
 
 	/* GrP dump function addresses */
 	funcdump(fns_fname, in_fname);
+	funcdump_fceux(bin_fname);
 
 	/* ok */
 	return(0);

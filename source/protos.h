@@ -131,4 +131,5 @@ int  labldef(int lval, int flag);
 void lablset(char *name, int val);
 void lablremap(void);
 void funcdump(const char *name, const char *in_fname);
+void funcdump_fceux(const char *bin_fname);
 
